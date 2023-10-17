@@ -4,147 +4,151 @@ var spec = {
     "version": "1.0.0",
     "title": "API Specification"
   },
+  "servers": [
+    {
+      "url": "https://jsonplaceholder.typicode.com",
+      "description": "JSONPlaceholder API"
+    }
+  ],
   "paths": {
-    "/login": {
+    "/posts": {
       "get": {
-        "summary": "Get Article.",
-        "operationId": "get and Article",
-        "tags": [
-          "App/Controller/Auth.php"
-        ],
-
+        "summary": "Get Posts",
+        "operationId": "getPosts",
+        "tags": ["Post"],
         "responses": {
           "200": {
-            "description": "{'status':true,'message':'berhasil'}",
+            "description": "List of posts",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "userId": 1,
+                    "id": 1,
+                    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                    "body": "quia et suscipit\nsuscipit"
+                  },
+                  {
+                    "userId": 1,
+                    "id": 2,
+                    "title": "qui est esse",
+                    "body": "est rerum tempore quis soluta deleniti quidem"
+                  }
+                ]
+              }
+            }
           },
-          "400": {
-            "description": "{'status':false,'message':'data error'}",
-          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          }
         }
       },
-    },
-    "/update/:id": {
       "post": {
-        "summary": "Register",
-        "operationId": "register",
-        "tags": [
-          "App/Controller/Auth.php"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Id"
-          }
-        ],
+        "summary": "Create Post",
+        "operationId": "createPost",
+        "tags": ["Post"],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Article": {
-                    "type": "string",
-                    "description": "The content of the article."
-                  },
-                  "ArticleId": {
+                  "userId": {
                     "type": "integer",
-                    "format": "int32",
-                    "description": "The ID of the article."
+                    "description": "User ID"
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Title of the post"
+                  },
+                  "body": {
+                    "type": "string",
+                    "description": "Content of the post"
                   }
                 }
               }
-
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "{'status':true,'message':'berhasil'}",
+          "201": {
+            "description": "Post created successfully",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "Article": {
-                      "type": "string",
-                      "description": "The content of the article."
-                    },
-                    "ArticleId": {
-                      "type": "integer",
-                      "format": "int32",
-                      "description": "The ID of the article."
-                    }
-                  }
+                "example": {
+                  "userId": 1,
+                  "id": 101,
+                  "title": "Newly Created Post",
+                  "body": "This is a new post created via the API"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": false,
+                  "message": "Bad request error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "summary": "Get Post by ID",
+        "operationId": "getPostById",
+        "tags": ["Post"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Post ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of a post",
+            "content": {
+              "application/json": {
+                "example": {
+                  "userId": 1,
+                  "id": 1,
+                  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                  "body": "quia et suscipit\nsuscipit"
                 }
               }
             }
           },
           "404": {
-            "description": "{'status':false,'message':'Data not found'}",
+            "description": "Not Found",
             "content": {
               "application/json": {
-
-                "schema": { "$ref": "#/components/schemas/NotFound" }
-              }
-            }
-          }
-        }
-      },
-    },
-  },
-  "components": {
-    "schemas": {
-      "Id": {
-        "description": "Resource ID",
-        "type": "integer/char",
-        "format": "int64/char36",
-        "readOnly": true,
-      },
-      "NotFound": {
-        "properties": {
-          "Status": {
-            "type": "boolean",
-            "description": "status"
-          },
-          "Message": {
-            "type": "string",
-            "description": "Tidak ditemukan data."
-
-          }
-        }
-      }
-    },
-    "parameters": {
-      "Id": {
-        "name": "id",
-        "in": "path",
-        "description": "Resource ID",
-        "required": true,
-        "schema": {
-          "$ref": "#/components/schemas/Id"
-        }
-      },
-    },
-    "responses": {
-      "NotFound": {
-        "description": "The resource is not found.",
-        "content": {
-          "application/json": {
-            "Error": {
-              "description": "<table>\n  <tr>\n    <th>Code</th>\n    <th>Description</th>\n  </tr>\n  <tr>\n    <td>illegal_input</td>\n    <td>The input is invalid.</td>\n  </tr>\n  <tr>\n    <td>not_found</td>\n    <td>The resource is not found.</td>\n  </tr>\n</table>\n",
-              "required": [
-                "code",
-                "message"
-              ],
-              "properties": {
-                "code": {
-                  "type": "string",
-                  "example": "illegal_input"
+                "example": {
+                  "status": false,
+                  "message": "Post not found"
                 }
               }
             }
           }
         }
-      },
+      }
     }
   }
 }
