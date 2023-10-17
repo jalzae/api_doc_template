@@ -1,0 +1,104 @@
+<html>
+
+<head>
+  <title>API Document</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./swagger-ui.css">
+  <link rel="stylesheet" type="text/css" href="./custom-swagger-ui.css">
+  <style>
+    .topbar {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a style="padding-left: 18px;" class="navbar-brand d-flex align-items-center" href="#">
+      <img src="./logo.png" style="max-width: 40px; height: auto;" class="logo me-2">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Documentation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Environment</a>
+        </li>
+      </ul>
+    </div>
+    <!-- Search Bar or Burger Menu -->
+    <form class="form-inline my-2 my-md-0" style="padding-right:12px;">
+      <input id="searchInput" class="form-control" type="search" onkeyup=" filterAPI();" placeholder="Search"
+        aria-label="Search">
+    </form>
+  </nav>
+
+  <div id="swagger-ui"></div>
+  <script src="./swagger-ui-bundle.js"> </script>
+  <script src="./swagger-ui-standalone-preset.js"> </script>
+  <script src="./data.js"> </script>
+
+  <script>
+
+    function reInit(spec) {
+      const ui = SwaggerUIBundle({
+        spec: spec,
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        plugins: [
+          SwaggerUIBundle.plugins.DownloadUrl
+        ],
+        layout: "StandaloneLayout"
+      })
+      window.ui = ui
+    }
+
+    function filterAPI() {
+
+      var searchInput = document.getElementById("searchInput").value.toLowerCase();
+
+      if (searchInput == "") {
+        reInit(spec)
+        return false
+      }
+
+      var paths = {}
+      for (var path in spec.paths) {
+        if (path.toLowerCase().includes(searchInput)) {
+          var pathData = spec.paths[path];
+
+          paths[path] = pathData;
+        }
+      }
+
+      var newSpec = {
+        openapi: "3.0.1",
+        info: {
+          "title": "Result Search.."
+        },
+        paths: paths
+      }
+
+      reInit(newSpec)
+    }
+
+    window.onload = () => {
+      reInit(spec);
+    };
+
+  </script>
+</body>
+
+</html>
