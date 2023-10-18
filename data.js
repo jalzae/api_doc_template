@@ -15,6 +15,11 @@ var spec = {
       "get": {
         "summary": "Get Posts",
         "description": "For get the post",
+        "code": `
+const previewCodeElements = document.getElementsByClassName('code-preview');
+for (let i = 0; i < previewCodeElements.length; i++) {
+  previewCodeElements[i].innerHTML = 'Your new HTML content here';
+}`,
         "operationId": "getPosts",
         "tags": ["Post"],
         "parameters": [
@@ -173,5 +178,14 @@ var spec = {
         }
       }
     }
+  },
+  "menu": {
+    "usage": `<div class="tabsContent"><p>Its documentation session </p></div>`,
+    "readme": `<div class="tabsContent">
+        <h2>Read Me</h2>
+        <p>
+          its Read me documentation for this document api example
+        </p>
+      </div>`,
   }
 }
