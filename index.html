@@ -49,6 +49,10 @@
     .hidden {
       display: none !important;
     }
+
+    .version {
+      color: black !important;
+    }
   </style>
 </head>
 
@@ -92,31 +96,7 @@
           <div class="content">
             <h2>Details</h2>
             <div class="code-preview">
-              <h3>Description</h3>
-              <pre>
-                <code class="language-javascript">
-              package main
 
-              import (
-              "fmt"
-              "strings"
-              "net/http"
-              "io/ioutil"
-              )
-              </code>
-              </pre>
-
-
-              <h3>Response</h3>
-              <pre>
-              <code class="language-javascript">
-// This is a beautiful code snippet
-function add(a, b) {
-    // Add two numbers and return the result
-    return a + b;
-}
-                      </code>
-            </pre>
             </div>
           </div>
         </div>
@@ -200,6 +180,8 @@ function add(a, b) {
       reInit(spec);
       const sidebarElement = document.getElementById('sidebar');
       const opblockElements = document.getElementsByClassName('opblock');
+      const previewCode = document.querySelector('.code-preview');
+
 
       for (let i = 0; i < opblockElements.length; i++) {
         opblockElements[i].addEventListener('click', function () {
@@ -211,8 +193,30 @@ function add(a, b) {
           const methodElement = document.querySelector('#' + completeId + ' .opblock-summary-method');
           const method = methodElement.textContent.trim().toLowerCase();
           const path = pathElement.textContent;
-          var e = spec.paths[path][method]
-          console.log(e)
+          var e = spec.paths[path][method].responses
+
+          var count = 0;
+          previewCode.innerHTML = ''
+          for (const responseCode in e) {
+            if (e[responseCode].expected) {
+              previewCode.innerHTML += `
+              <h3>${responseCode}</h3>
+              <pre>
+                <code class="language-javascript">
+${e[responseCode].expected}
+              </code>
+              </pre>`
+              count++
+            }
+          }
+
+          if (count == 0) {
+            sidebarElement.classList.add('hidden');
+          }
+
+
+
+
         });
       }
     };

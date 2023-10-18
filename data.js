@@ -48,7 +48,13 @@ var spec = {
                   }
                 ]
               }
-            }
+            },
+            "expected": `
+{
+  status:true,
+  message:'Connected',
+  data:[{users}]
+}`
           },
           "404": {
             "description": "Not Found",
@@ -59,7 +65,12 @@ var spec = {
                   "message": "Resource not found"
                 }
               }
-            }
+            },
+            "expected": `
+{
+  status:false,
+  message:'Not Found'
+}`
           }
         }
       },
