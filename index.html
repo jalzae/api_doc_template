@@ -8,68 +8,8 @@
   <link rel="stylesheet" type="text/css" href="./custom-swagger-ui.css">
   <link rel="stylesheet" href="./prism.css">
   <script src="./prism.js"></script>
-  <style>
-    .topbar {
-      display: none;
-    }
-
-    contentsection {
-      padding: 16px;
-      margin: 16px;
-      line-height: 4px;
-      ;
-    }
-
-    .sidebar {
-      padding: 20px;
-      background-color: #f2f2f2;
-
-    }
-
-    #sidebar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      height: 100%;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      overflow-y: auto;
-      z-index: 100;
-    }
-
-    .content {
-      padding: 20px;
-    }
-
-    .code-preview {
-      background-color: #fff;
-      padding: 20px;
-      border: 1px solid #ccc;
-
-    }
-
-    pre {
-      background-color: #f7f7f7;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-family: "Courier New", monospace;
-      font-size: 16px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .version {
-      color: black !important;
-    }
-
-    .tabsContent {
-      text-align: left;
-      padding: 24px;
-    }
-  </style>
+  <script src="./style.js"></script>
+ 
 </head>
 
 <body>
@@ -77,11 +17,7 @@
     <li class="nav-item">
       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">Home</a>
     </li>
-
-
-
   </ul>
-
   <div class="tab-content" id="tabContent" class="col-md-12">
     <div class="tab-pane fade show active" id="home">
       <!-- Home content goes here -->
@@ -195,8 +131,6 @@ ${value}
 
       for (let i = 0; i < opblockElements.length; i++) {
         opblockElements[i].addEventListener('click', function () {
-          // Get the complete id of the clicked element
-          //operations-Post-getPostById example
           const completeId = opblockElements[i].id;
           sidebarElement.classList.remove('hidden');
           const pathElement = document.querySelector('#' + completeId + ' .opblock-summary-path a.nostyle span');
