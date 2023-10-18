@@ -14,8 +14,20 @@ var spec = {
     "/posts": {
       "get": {
         "summary": "Get Posts",
+        "description": "For get the post",
         "operationId": "getPosts",
         "tags": ["Post"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authentication token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of posts",
