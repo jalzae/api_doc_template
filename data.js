@@ -179,9 +179,9 @@ for (let i = 0; i < previewCodeElements.length; i++) {
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
+            "jwt": [
+              "write",
+              "read"
             ]
           }
         ]
@@ -198,13 +198,13 @@ for (let i = 0; i < previewCodeElements.length; i++) {
       "name": "api_key",
       "in": "header"
     },
-    "petstore_auth": {
+    "jwt": {
       "type": "oauth2",
-      "authorizationUrl": "https://petstore.swagger.io/oauth/authorize",
+      "authorizationUrl": "/",
       "flow": "implicit",
       "scopes": {
-        "read:pets": "read your pets",
-        "write:pets": "modify pets in your account"
+        "read": "read",
+        "write": "modify"
       }
     }
   },
