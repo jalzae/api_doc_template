@@ -75,6 +75,8 @@
         layout: "StandaloneLayout"
       })
       window.ui = ui
+
+      initFunction()
     }
 
     function filterAPI() {
@@ -119,14 +121,10 @@
 ${value}
     </div>`
       }
-
-
     }
 
-    window.onload = () => {
-      reInit(spec);
-
-      const sidebarElement = document.getElementById('sidebar');
+    function initFunction(){
+       const sidebarElement = document.getElementById('sidebar');
       const opblockElements = document.getElementsByClassName('opblock');
       const previewCode = document.querySelector('.code-preview');
 
@@ -174,9 +172,15 @@ ${e[responseCode].expected}
           }
         });
       }
-    };
+      
+    }
+
+    window.onload = () => {
+      reInit(spec);
+     };
 
     addMenuTabs()
+    initFunction()
   </script>
 </body>
 
