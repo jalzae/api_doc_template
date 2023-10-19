@@ -37,14 +37,6 @@ contentsection {
 
 }
 
-pre {
-  background-color: #f7f7f7;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-family: "Courier New", monospace;
-  font-size: 16px;
-}
 
 .hidden {
   display: none !important;
@@ -57,4 +49,13 @@ pre {
 .tabsContent {
   text-align: left;
   padding: 24px;
+}
+
+.code-preview pre {
+  background-color: black;
+  padding: 4px;
+}
+
+.code-preview pre code {
+  color: white;
 }

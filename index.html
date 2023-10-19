@@ -8,8 +8,8 @@
   <link rel="stylesheet" type="text/css" href="./custom-swagger-ui.css">
   <link rel="stylesheet" href="./prism.css">
   <script src="./prism.js"></script>
-  <script src="./style.js"></script>
- 
+  <link rel="stylesheet" href="./style.css">
+
 </head>
 
 <body>
@@ -42,7 +42,6 @@
           <div class="content">
             <h2>Details</h2>
             <div class="code-preview">
-
             </div>
           </div>
         </div>
@@ -59,9 +58,7 @@
   <script src="./data.js"> </script>
 
   <script>
-    const sidebarElement = document.getElementById('sidebar');
-    const opblockElements = document.getElementsByClassName('opblock');
-    const previewCode = document.querySelector('.code-preview');
+
 
     function reInit(spec) {
       const ui = SwaggerUIBundle({
@@ -129,9 +126,14 @@ ${value}
     window.onload = () => {
       reInit(spec);
 
+      const sidebarElement = document.getElementById('sidebar');
+      const opblockElements = document.getElementsByClassName('opblock');
+      const previewCode = document.querySelector('.code-preview');
+
       for (let i = 0; i < opblockElements.length; i++) {
         opblockElements[i].addEventListener('click', function () {
           const completeId = opblockElements[i].id;
+          console.log(completeId)
           sidebarElement.classList.remove('hidden');
           const pathElement = document.querySelector('#' + completeId + ' .opblock-summary-path a.nostyle span');
           const methodElement = document.querySelector('#' + completeId + ' .opblock-summary-method');

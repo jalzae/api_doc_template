@@ -10,6 +10,7 @@ var spec = {
       "description": "JSONPlaceholder API"
     }
   ],
+  "host": "petstore.swagger.io",
   "paths": {
     "/posts": {
       "get": {
@@ -175,7 +176,35 @@ for (let i = 0; i < previewCodeElements.length; i++) {
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    },
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://petstore.swagger.io/oauth/authorize",
+      "flow": "implicit",
+      "scopes": {
+        "read:pets": "read your pets",
+        "write:pets": "modify pets in your account"
       }
     }
   },
