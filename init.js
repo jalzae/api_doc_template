@@ -71,6 +71,7 @@ function initFunction() {
   for (let i = 0; i < opblockElements.length; i++) {
     opblockElements[i].addEventListener('click', function () {
       const completeId = opblockElements[i].id;
+      console.log(completeId)
       sidebarElement.classList.remove('hidden');
       const pathElement = document.querySelector('#' + completeId + ' .opblock-summary-path a.nostyle span');
       const methodElement = document.querySelector('#' + completeId + ' .opblock-summary-method');
@@ -90,7 +91,7 @@ function initFunction() {
                 </code>
             </pre>
             `
-        count++
+
       }
       for (const responseCode in e) {
         if (e[responseCode].expected) {
@@ -99,7 +100,7 @@ function initFunction() {
               <h3>${responseCode}</h3>
               <pre>
                 <code class="language-javascript">
-${e[responseCode].expected}
+${JSON.stringify(e[responseCode].expected)}
               </code>
               </pre>`
           count++
