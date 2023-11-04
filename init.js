@@ -1,4 +1,89 @@
+function openSidebar() {
+  document.getElementById("sidebar-flying").style.width = "35%";
+  document.getElementById("sidebar").classList.add('hidden');
+}
 
+function closeSidebar() {
+  document.getElementById("sidebar-flying").style.width = "0";
+}
+
+document.getElementById("flyout-button").addEventListener("click", openSidebar);
+
+function generateOperationId(summary, tags) {
+  // Modify this logic to suit your specific requirements
+  // Here, we are using tags to generate the operationId
+  // You can customize this logic as needed
+  const tagPart = tags.join('-').replace(/[^a-zA-Z0-9-]/g, '-');
+  const summaryPart = summary.replace(/[^a-zA-Z0-9-]/g, '_');
+
+  return `operations-${tagPart}-${summaryPart}`;
+}
+
+function generateMenu(data) {
+  const menu = document.getElementById("sidebar-menu");
+
+  // Create an object to group methods by operationId
+  const groupedMethods = {};
+
+  for (const path in data.paths) {
+    const pathData = data.paths[path];
+    const methods = Object.keys(pathData);
+
+    methods.forEach((method) => {
+      const methodData = pathData[method];
+      const tags = methodData.tags;
+      const summary = methodData.summary;
+
+      // Generate operationId based on tags and summary
+      const operationId = generateOperationId(summary, tags);
+
+      // Create the methodItem and add it to the corresponding group
+      const methodItem = document.createElement("li");
+      methodItem.innerHTML = `<a href="#${operationId}"><p>Route : ${path}</p><p>${method.toUpperCase()}: ${methodData.summary}</p></a>`;
+
+      if (!groupedMethods[operationId]) {
+        groupedMethods[operationId] = [];
+      }
+      groupedMethods[operationId].push(methodItem);
+    });
+  }
+
+  // Iterate through the grouped methods and create menu items
+  for (const operationId in groupedMethods) {
+    const groupItems = groupedMethods[operationId];
+    const groupItem = document.createElement("li");
+    groupItem.classList.add('parent');
+    groupItem.innerText = `${operationId.replace('operations-', '')}`;
+
+    const subMenu = document.createElement("ul");
+    groupItems.forEach((methodItem) => {
+      subMenu.appendChild(methodItem);
+    });
+
+    groupItem.appendChild(subMenu);
+    menu.appendChild(groupItem);
+  }
+}
+
+
+function filterAPIFlying() {
+  const searchInput = document.getElementById("searchInputFlying");
+  const searchText = searchInput.value.toLowerCase();
+
+  const menu = document.getElementById("sidebar-menu");
+  const items = menu.getElementsByTagName("li");
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const text = item.textContent.toLowerCase();
+
+    if (text.includes(searchText)) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  }
+}
 
 function reInit(spec) {
   const ui = SwaggerUIBundle({
@@ -119,6 +204,7 @@ ${JSON.stringify(e[responseCode].expected)}
 
 window.onload = () => {
   reInit(spec);
+  generateMenu(spec)
 };
 
 addMenuTabs()

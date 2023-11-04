@@ -59,3 +59,87 @@ contentsection {
 .code-preview pre code {
   color: white;
 }
+
+/* //Flying menu  */
+
+#flyout-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+}
+
+#sidebar-flying {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #eef0f1;
+  overflow-x: hidden;
+  transition: 0.3s;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+#sidebar-content {
+  padding: 20px;
+}
+
+#close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #000000;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#sidebar-menu {
+  list-style-type: none;
+  padding: 12px;
+}
+
+#sidebar-menu>li {
+  margin-bottom: 10px;
+}
+
+#sidebar-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 20px;
+}
+
+#sidebar-menu ul>li {
+  margin-bottom: 5px;
+}
+
+#sidebar-menu ul>li::before {
+  content: '▸';
+  /* Add a right-pointing triangle */
+  margin-right: 5px;
+  color: #fff;
+}
+
+#sidebar-menu a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+}
+
+.parent {
+  font-weight: 700;
+  margin-bottom: 12px;
+  border: 1px dotted;
+  padding: 4px;
+}
