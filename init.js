@@ -38,8 +38,10 @@ function filterAPI() {
   var newSpec = {
     openapi: "3.0.1",
     info: {
+      "version": "1.0.0",
       "title": "Result Search.."
     },
+    servers: spec.servers,
     paths: paths
   }
 
